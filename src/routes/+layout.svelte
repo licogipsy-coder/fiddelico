@@ -1,0 +1,35 @@
+<script>
+	import '../app.css';
+	import Nav from '$lib/components/Nav.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+
+	let { children } = $props();
+</script>
+
+<svelte:head>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap"
+		rel="stylesheet"
+	/>
+</svelte:head>
+
+<div class="shell">
+	<Nav />
+	<main>
+		{@render children()}
+	</main>
+	<Footer />
+</div>
+
+<style>
+	.shell {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+	main {
+		flex: 1;
+	}
+</style>
