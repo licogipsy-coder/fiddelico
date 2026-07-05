@@ -2,6 +2,23 @@
 	import { base } from '$app/paths';
 	import { site, featured, categories } from '$lib/data/site.js';
 	import Gallery from '$lib/components/Gallery.svelte';
+
+	// Only autoplay the cinematic background when the visitor hasn't asked
+	// to reduce motion; otherwise the poster frame stands in.
+	let allowMotion = $state(true);
+
+	/** @param {HTMLVideoElement} node */
+	function playBg(node) {
+		const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const sync = () => {
+			allowMotion = !mq.matches;
+			if (allowMotion) node.play?.().catch(() => {});
+			else node.pause?.();
+		};
+		sync();
+		mq.addEventListener('change', sync);
+		return { destroy: () => mq.removeEventListener('change', sync) };
+	}
 </script>
 
 <svelte:head>
@@ -13,7 +30,20 @@
 </svelte:head>
 
 <section class="hero">
-	<div class="hero__bg" aria-hidden="true"></div>
+	<video
+		class="hero__bg"
+		use:playBg
+		autoplay={allowMotion}
+		muted
+		loop
+		playsinline
+		preload="auto"
+		poster="{base}/media/hero-poster.jpg"
+		aria-hidden="true"
+	>
+		<source src="{base}/media/hero.webm" type="video/webm" />
+		<source src="{base}/media/hero.mp4" type="video/mp4" />
+	</video>
 	<div class="wrap hero__inner">
 		<p class="eyebrow">{site.role} — {site.location}</p>
 		<h1 class="hero__title">{site.tagline}</h1>
@@ -68,9 +98,10 @@
 	.hero__bg {
 		position: absolute;
 		inset: 0;
-		background-image: url('https://picsum.photos/seed/lico-hero/1920/1200');
-		background-size: cover;
-		background-position: center;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
 		filter: grayscale(0.35) brightness(0.55);
 		transform: scale(1.03);
 	}
