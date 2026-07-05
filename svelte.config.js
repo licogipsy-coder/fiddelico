@@ -5,8 +5,13 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 const config = {
 	preprocess: vitePreprocess(),
 	kit: {
-		// fiddelico.github.io is a user page served from the domain root,
-		// so no base path is needed. Deploy the fully prerendered site.
+		// Served as a project page at https://<user>.github.io/fiddelico/,
+		// so assets and links must be prefixed with this base path.
+		// If you later move to a root user page (fiddelico.github.io),
+		// set BASE_PATH='' (or delete paths.base) and redeploy.
+		paths: {
+			base: process.env.BASE_PATH ?? '/fiddelico'
+		},
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',

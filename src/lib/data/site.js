@@ -20,8 +20,12 @@ export const site = {
 	]
 };
 
+import { base } from '$app/paths';
+
 // Placeholder photography. picsum.photos serves deterministic real photos by seed.
 const img = (seed, w = 900, h = 1200) => `https://picsum.photos/seed/${seed}/${w}/${h}`;
+// Real photos live in /static/photos and must carry the deploy base path.
+const local = (file) => `${base}/photos/${file}`;
 
 export const categories = [
 	{ id: 'portrait', label: 'Portrait' },
@@ -44,9 +48,10 @@ export const photos = [
 	{ id: 'p11', title: 'After Rain', category: 'street', src: img('lico-street-3', 1200, 900), w: 1200, h: 900 },
 	{ id: 'p12', title: 'Quiet Hour', category: 'landscape', src: img('lico-land-4', 1400, 900), w: 1400, h: 900 },
 	{ id: 'p13', title: 'Turn', category: 'portrait', src: img('lico-portrait-4'), w: 900, h: 1200 },
-	{ id: 'p14', title: 'Bench', category: 'studio', src: img('lico-studio-3'), w: 900, h: 1200 }
+	{ id: 'p14', title: 'Bench', category: 'studio', src: img('lico-studio-3'), w: 900, h: 1200 },
+	{ id: 'p15', title: 'Stage Light', category: 'street', src: local('stage-light.jpg'), w: 1800, h: 1200 }
 ];
 
 export const featured = photos.filter((p) =>
-	['p1', 'p2', 'p3', 'p6', 'p8', 'p9'].includes(p.id)
+	['p1', 'p2', 'p3', 'p6', 'p8', 'p9', 'p15'].includes(p.id)
 );

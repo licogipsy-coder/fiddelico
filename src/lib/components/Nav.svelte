@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/stores';
+	import { base } from '$app/paths';
 	import { site } from '$lib/data/site.js';
 
 	let open = $state(false);
@@ -11,19 +12,23 @@
 		{ href: '/contact/', label: 'Contact' }
 	];
 
+	// Prefix internal routes with the deploy base path (e.g. /fiddelico).
+	const to = (href) => `${base}${href}`;
+
 	let path = $derived($page.url.pathname);
-	const isActive = (href) => (href === '/' ? path === '/' : path.startsWith(href));
+	const isActive = (href) =>
+		href === '/' ? path === to('/') : path.startsWith(to(href));
 </script>
 
 <header class="nav">
 	<div class="wrap nav__bar">
-		<a class="nav__brand" href="/" onclick={() => (open = false)}>
+		<a class="nav__brand" href={to('/')} onclick={() => (open = false)}>
 			{site.name}<span>.</span>
 		</a>
 
 		<nav class="nav__links" aria-label="Primary">
 			{#each links as link}
-				<a href={link.href} class:active={isActive(link.href)}>{link.label}</a>
+				<a href={to(link.href)} class:active={isActive(link.href)}>{link.label}</a>
 			{/each}
 		</nav>
 
@@ -42,7 +47,7 @@
 		<nav class="nav__mobile" aria-label="Mobile">
 			{#each links as link}
 				<a
-					href={link.href}
+					href={to(link.href)}
 					class:active={isActive(link.href)}
 					onclick={() => (open = false)}
 				>

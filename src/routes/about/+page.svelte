@@ -1,4 +1,5 @@
 <script>
+	import { base } from '$app/paths';
 	import { site } from '$lib/data/site.js';
 
 	const stats = [
@@ -64,7 +65,7 @@
 		{/each}
 	</div>
 	<div class="services__cta">
-		<a class="btn btn--solid" href="/contact/">Start a project</a>
+		<a class="btn btn--solid" href="{base}/contact/">Start a project</a>
 	</div>
 </section>
 

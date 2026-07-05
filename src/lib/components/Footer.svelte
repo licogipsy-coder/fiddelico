@@ -1,4 +1,5 @@
 <script>
+	import { base } from '$app/paths';
 	import { site } from '$lib/data/site.js';
 	const year = 2026;
 </script>
@@ -11,9 +12,9 @@
 		</div>
 
 		<nav class="foot__links" aria-label="Footer">
-			<a href="/gallery/">Gallery</a>
-			<a href="/about/">About</a>
-			<a href="/contact/">Contact</a>
+			<a href="{base}/gallery/">Gallery</a>
+			<a href="{base}/about/">About</a>
+			<a href="{base}/contact/">Contact</a>
 		</nav>
 
 		<div class="foot__social">

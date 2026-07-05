@@ -1,4 +1,5 @@
 <script>
+	import { base } from '$app/paths';
 	import { site, featured, categories } from '$lib/data/site.js';
 	import Gallery from '$lib/components/Gallery.svelte';
 </script>
@@ -20,8 +21,8 @@
 			A portfolio of portrait, landscape and street work by {site.name}.
 		</p>
 		<div class="hero__cta">
-			<a class="btn btn--solid" href="/gallery/">View Gallery</a>
-			<a class="btn" href="/contact/">Book a Session</a>
+			<a class="btn btn--solid" href="{base}/gallery/">View Gallery</a>
+			<a class="btn" href="{base}/contact/">Book a Session</a>
 		</div>
 	</div>
 	<span class="hero__scroll" aria-hidden="true">Scroll</span>
@@ -34,7 +35,7 @@
 	</header>
 	<Gallery photos={featured} />
 	<div class="block__more">
-		<a class="btn" href="/gallery/">See the full gallery</a>
+		<a class="btn" href="{base}/gallery/">See the full gallery</a>
 	</div>
 </section>
 
@@ -46,7 +47,7 @@
 	<ul class="disciplines">
 		{#each categories as c}
 			<li>
-				<a href="/gallery/#{c.id}">
+				<a href="{base}/gallery/#{c.id}">
 					<span class="disciplines__label">{c.label}</span>
 					<span class="disciplines__arrow" aria-hidden="true">→</span>
 				</a>
